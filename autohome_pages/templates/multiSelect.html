@@ -1,0 +1,25 @@
+<form method="get" >
+    <div class="form-group">
+        <h4><label for="selMulti">Select Brands:</label></h4>
+            <select class='form-control' id="selMulti" multiple='multiple'>
+                <option value="凯美瑞" selected="selected">凯美瑞</option>
+                <option value="帕萨特" selected="selected">帕萨特</option>
+                <option value="雅阁">雅阁</option>
+                <option value="迈锐宝">迈锐宝</option>
+                <option value="迈锐宝XL">迈锐宝XL</option>
+                <option value="迈腾">迈腾</option>
+                <option value="蒙迪欧">蒙迪欧</option>
+                <option value="名图">名图</option>
+            </select>
+    </div>
+</form>
+<div>
+    <button type="button" class="btn btn-default" id='subMulti'>submit</button>
+</div>
+
+<script type="text/javascript">
+    $('#selMulti').multiselect({
+            includeSelectAllOption: true,
+            selectAllJustVisible: false
+    })
+</script>

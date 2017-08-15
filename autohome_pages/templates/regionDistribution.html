@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Region Distribution{% endblock %}
+{% block chart_title %}Car Owner Region Distribution{% endblock%}
+{% block cartype %}
+    {% include 'choosecar.html' %}
+{% endblock%}
+
+{# jQury Code #}
+{% block jquery_script %}
+<script>
+    $(document).ready(function(){
+      $("#sub").click(function(){
+        var car = $("#sel1").val();
+        $.getJSON('{% url 'region' %}',{'a':car}, function(ret){
+            drawMarkersMap(ret.list1);
+            drawTrendlines(ret.list2);
+        })
+    });
+  });
+</script>
+{% endblock %}
+
+{# javascript code to draw chart #}
+
+{% block up_script %}
+<script type="text/javascript">
+        google.charts.load('current', {
+         'packages': ['geochart'],
+               // Note: you will need to get a mapsApiKey for your project.
+               // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+               'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+           });
+        google.charts.setOnLoadCallback(drawMarkersMap);
+    try{
+        function drawMarkersMap(list) {
+          var data = google.visualization.arrayToDataTable(list);
+          var options = {
+            width: 1000,
+            height:300,
+            region: 'CN',
+            displayMode: 'markers',
+            colorAxis: {colors: ['blue', 'Red']}
+        };
+        var chart = new google.visualization.GeoChart(document.getElementById('up'));
+        chart.draw(data, options);
+    }
+}
+    catch(err) {
+    alert('error')
+    }
+
+</script>
+{% endblock %}
+
+{% block down_script %}
+<script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawTrendlines);
+    try{
+            function drawTrendlines(list1) {
+              var data = google.visualization.arrayToDataTable(list1);
+              var options = {
+                legend: { position: 'top', maxLines: 3 },
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('down'));
+            chart.draw(data, options);
+        }
+    }
+    catch(err){
+        alert('error')
+    }
+</script>
+{% endblock %}

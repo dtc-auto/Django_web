@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}level One Index Evaluation{% endblock %}
+{% block chart_title %}Attributes Discussion of B-Segment Model{% endblock%}
+
+{% block cartypeMultiChoice %}
+    {% include 'multiSelect.html' %}
+{% endblock%}
+{# jQury Code #}
+{% block jquery_script %}
+<script>
+    $(document).ready(function(){
+      $("#subMulti").click(function(){
+        var array1 = $("#selMulti").val();
+        var json_array1 = JSON.stringify(array1);
+        $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
+            drawStacked(ret.list1);
+            drawTable(ret.list1);
+        })
+      });
+  });
+</script>
+{% endblock %}
+
+{# javascript code to draw chart #}
+
+{% block up_script %}
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['line']});
+    google.charts.setOnLoadCallback(drawStacked);
+    try{
+        function drawStacked(list1) {
+          var data = google.visualization.arrayToDataTable(list1);
+
+        var options = {
+                  width: '90%', height: 300,
+                  bars: 'horizontal', // Required for Material Bar Charts.
+                };
+
+      var chart = new google.charts.Line(document.getElementById('up'));
+      chart.draw(data, google.charts.Line.convertOptions(options));
+  }
+}
+    catch(err) {
+    alert('error')
+    }
+
+</script>
+{% endblock %}
+
+{% block down_script %}
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['table']});
+    google.charts.setOnLoadCallback(drawTable);
+    try{
+        function drawTable(list1) {
+          var data = new google.visualization.DataTable();
+          var array = list1;
+          len = array[0].length;
+          data.addColumn('string', array[0][0]);
+          for (i = 1; i < len; i++) {
+            data.addColumn('number', array[0][i]);
+          }
+          array.shift();
+          data.addRows(array);
+          var table = new google.visualization.Table(document.getElementById('down'));
+
+          table.draw(data, {showRowNumber: false, width: '100%', height: 300});
+        }
+    }
+    catch(err){
+        alert('error')
+    }
+</script>
+{% endblock %}

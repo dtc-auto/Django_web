@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}level Two Index Evaluation{% endblock %}
+{% block chart_title %}Level2 Attributes Discussion of B-Segment Model{% endblock%}
+{% block cartype %}
+    {% include 'choosecar.html' %}
+{% endblock%}
+{% block cartypeMultiChoice %}
+    {% include 'chooseDimensions.html' %}
+{% endblock%}
+{# jQury Code #}
+{% block jquery_script %}
+<script>
+    $(document).ready(function(){
+      $("#sub").click(function(){
+        var car = $("#sel1").val();
+        var dim = $("#selDim").val();
+        var array1 = [car,dim]
+        var json_array1 = JSON.stringify(array1);
+        console.log(json_array1)
+        $.getJSON('{% url 'level2' %}',{'a':json_array1}, function(ret){
+            drawStacked(ret.list1);
+        })
+      });
+  });
+</script>
+{% endblock %}
+
+{# javascript code to draw chart #}
+
+{% block up_script %}
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['bar']});
+    google.charts.setOnLoadCallback(drawStacked);
+    try{
+        function drawStacked(list1) {
+              var data = google.visualization.arrayToDataTable(list1);
+              var options = {
+                chartArea: {height: '100%',width: '80%'},
+                isStacked: true,
+                legend: { position: 'top', maxLines: 3 },
+                bars: 'horizontal'
+              };
+              var materialOptions = google.charts.Bar.convertOptions(options);
+              var chart = new google.charts.Bar(document.getElementById('up'));
+              chart.draw(data, materialOptions);
+            }
+    }
+    catch(err) {
+    alert('error')
+    }
+</script>
+{% endblock %}
+
+{% block down_script %}
+{% endblock %}

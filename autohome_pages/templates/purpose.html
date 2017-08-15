@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Purchase Purpose{% endblock %}
+{% block chart_title %}
+    Purchasing Purpose of Mainstream B-Segment Vehicle
+{% endblock%}
+{% block cartype %}
+    {% include 'choosecar.html' %}
+{% endblock%}
+
+{# jQury Code #}
+{% block jquery_script %}
+<script>
+    $(document).ready(function(){
+      $("#sub").click(function(){
+        var car = $("#sel1").val();
+        $.getJSON('{% url 'purpose' %}',{'a':car}, function(ret){
+            drawStacked(ret.list1);
+        })
+    });
+  });
+</script>
+{% endblock %}
+
+{# javascript code to draw chart #}
+
+{% block up_script %}
+<script type="text/javascript">
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawStacked);
+    try{
+        function drawStacked(list1) {
+          var data = google.visualization.arrayToDataTable(list1);
+
+        var options = {
+                  width: 900,
+                  height: '100%',
+                  bars: 'horizontal', // Required for Material Bar Charts.
+                  axes: {
+                    x: {
+                      distance: {label: 'parsecs'}, // Bottom x-axis.
+                      brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
+                    }
+                  }
+                };
+
+      var chart = new google.charts.Bar(document.getElementById('up'));
+      chart.draw(data, options);
+  }
+}
+    catch(err) {
+    alert('error')
+    }
+
+</script>
+{% endblock %}
+
+{% block down_script %}
+{% endblock %}
