@@ -12,7 +12,7 @@ def base(request):
     return render(request, 'index.html')
 
 def dashboard(request):
-    return render(request, 'base.html')
+    return render(request, 'dashboard.html')
 
 def carOwnerChartPage(request):
     return render(request, 'regionDistribution.html')
