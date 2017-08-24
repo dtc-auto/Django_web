@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
 {% load staticfiles %}
 
+<html>
 <head>
 
     <meta charset="utf-8">
@@ -33,9 +33,23 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+
+
 </head>
 
-<body id="page-top">
+<body>
 
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -49,15 +63,15 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right ml-auto">
                 <li>
-                    <a class="page-scroll" href="#">Services</a>
+                    <a class="nav-link js-scroll-trigger" href="#"> Services </a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#">Portfolio</a>
+                    <a class="nav-link js-scroll-trigger" href="#"> Portfolio </a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#">About Us</a>
+                    <a class="nav-link js-scroll-trigger" href="#about"> About US <i class="fa fa-fw fa-caret-down"></i></a>
                 </li>
             </ul>
         </div>
@@ -72,13 +86,13 @@
             <h1 id="homeHeading">Data-driven, Infinite innovation </h1>
             <hr>
             <h4>We collect data from various sources to help you to analyze your brand from different aspects</h4>
-            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-xl page-scroll"> Start From Here </a>
         </div>
     </div>
 </header>
 
 
-<section id="contact">
+<section id="about">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -93,6 +107,14 @@
             <div class="col-lg-4 text-center">
                 <i class="fa fa-envelope-o fa-3x sr-contact"></i>
                 <p>mengjue.wang@detecon.com</p>
+            </div>
+            <div class="col-lg-4 col-lg-offset-2 text-center">
+                <i class="fa fa-phone fa-3x sr-contact"></i>
+                <p><a href=http://www.detecon.com/en> About DETECON </a></p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                <p><a href=http://www.t-systems.cn/5> About T-System </a></p>
             </div>
         </div>
     </div>
