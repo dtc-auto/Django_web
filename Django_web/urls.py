@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     # index page
     url(r'^$', 'autohome_pages.views.base', name='index'),
     # dashboard page
-    url(r'^dashboard$', 'autohome_pages.views.dashboard', name='dashboard'),
+    url(r'^dashboard', 'autohome_pages.views.dashboard', name='dashboard'),
     # charts and pages with chart
     url(r'^level1$', 'autohome_pages.views.level1chart', name='level1'),
     url(r'^level1Page$', 'autohome_pages.views.level1ChartPage', name='level1Page'),
