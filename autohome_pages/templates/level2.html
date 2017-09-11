@@ -12,7 +12,7 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
-      $("#sub").click(function(){
+      $("#sel1").change(function(){
         var car = $("#sel1").val();
         var dim = $("#selDim").val();
         var array1 = [car,dim]
@@ -23,6 +23,26 @@
         })
       });
   });
+  $(document).ready(function(){
+      $("#selDim").change(function(){
+        var car = $("#sel1").val();
+        var dim = $("#selDim").val();
+        var array1 = [car,dim]
+        var json_array1 = JSON.stringify(array1);
+        console.log(json_array1)
+        $.getJSON('{% url 'level2' %}',{'a':json_array1}, function(ret){
+            drawStacked(ret.list1);
+        })
+      });
+  });
+    var car = $("#sel1").val();
+    var dim = $("#selDim").val();
+    var array1 = [car,dim]
+    var json_array1 = JSON.stringify(array1);
+    console.log(json_array1)
+    $.getJSON('{% url 'level2' %}',{'a':json_array1}, function(ret){
+        drawStacked(ret.list1);
+    })
 </script>
 {% endblock %}
 

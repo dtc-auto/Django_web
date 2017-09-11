@@ -10,7 +10,7 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
-      $("#sub").click(function(){
+      $("#sel1").change(function(){
         var car = $("#sel1").val();
         $.getJSON('{% url 'region' %}',{'a':car}, function(ret){
             drawMarkersMap(ret.list1);
@@ -18,6 +18,11 @@
         })
     });
   });
+    var car = $("#sel1").val();
+    $.getJSON('{% url 'region' %}',{'a':car}, function(ret){
+        drawMarkersMap(ret.list1);
+        drawTrendlines(ret.list2);
+    })
 </script>
 {% endblock %}
 
