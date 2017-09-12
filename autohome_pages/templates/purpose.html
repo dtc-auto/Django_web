@@ -9,14 +9,20 @@
 {# jQury Code #}
 {% block jquery_script %}
 <script>
+    var car = $("#sel1").val();
+    $.getJSON('{% url 'purpose' %}',{'a':car}, function(ret){
+        drawStacked(ret.list1);
+    });
+
     $(document).ready(function(){
-      $("#sub").click(function(){
+      $("#sel1").change(function(){
         var car = $("#sel1").val();
         $.getJSON('{% url 'purpose' %}',{'a':car}, function(ret){
             drawStacked(ret.list1);
         })
     });
   });
+
 </script>
 {% endblock %}
 

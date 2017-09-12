@@ -10,7 +10,7 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
-      $("#subMulti").click(function(){
+      $("#selMulti").change(function(){
         var array1 = $("#selMulti").val();
         var json_array1 = JSON.stringify(array1);
         $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
@@ -19,6 +19,13 @@
         })
       });
   });
+
+        var array1 = $("#selMulti").val();
+        var json_array1 = JSON.stringify(array1);
+        $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
+            drawStacked(ret.list1);
+            drawTable(ret.list1);
+             });
 </script>
 {% endblock %}
 
