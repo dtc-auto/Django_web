@@ -34,6 +34,7 @@ class LEVEL2(models.Model):
     keyindex = models.CharField(max_length=100)
     KeyModifier = models.CharField(max_length=100)
     SentenceAttitude = models.CharField(max_length=100)
+    Case = models.CharField(max_length=100, default='')
 
 class PURPOSE(models.Model):
 
