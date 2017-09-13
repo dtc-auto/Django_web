@@ -11,6 +11,7 @@ class MAP(models.Model):
     https://docs.djangoproject.com/en/1.10/ref/models/fields/#field-types
     """
 
+
     W_Brand = models.CharField(max_length=100)
     W_City = models.CharField(max_length=100)
     R_City = models.CharField(max_length=100)
