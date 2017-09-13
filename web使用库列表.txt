@@ -1,0 +1,40 @@
+
+	BDCI
+
+MAP:
+getCarOwner:
+	DW_AutoHome_WOM
+		Brand��City
+	DM_VW_region
+		City��Province
+	DM_AutoHome_Map
+		province_pinyin��province
+
+getColumnChart_p1:
+	DM_VW_region
+		Region��City
+	DW_AutoHome_WOM
+		City��brand
+=========================================================
+LEVEL1��
+	DW_indexevaluationunpivot
+		score��Aspect��Brand
+
+LEVEL2��
+	DM_AutoHome_WOM_SecondLevelIndex_Noun_Modifier_Attitude_Frequency
+		Brand��Dimension��keyindex��KeyModifier��SentenceAttitude
+
+PURPOSE:
+	DM_AutoHoome_Purpose
+		*
+		ForChild
+      ForWork
+      ForShopping
+      ForBusiness
+      ForCrossCountry
+      ForLongDistance
+      ForRacing
+      ForSelfDriving
+      ForCarry
+      ForGirls
+      Brand

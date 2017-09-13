@@ -8,6 +8,7 @@ import json
 from autohome_pages.Connect_DB import getCarOwner, getColumnChart_p1, getLevel1Attributes, getLevel2Attributes, getPurpose
 
 
+
 def base(request):
     return render(request, 'index.html')
 
