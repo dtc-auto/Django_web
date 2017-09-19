@@ -9,25 +9,34 @@ password = "asdf1234"
 
 
 def getCarOwner(para):
-    sql = """SELECT w.Brand, m.province_pinyin, COUNT(m.province_pinyin) AS no
+    # sql = """SELECT w.Brand, m.province_pinyin, COUNT(m.province_pinyin) AS no
+    #          FROM DW_AutoHome_WOM AS w INNER JOIN
+    #          DM_VW_region AS r ON w.City = r.City INNER JOIN
+    #          DM_AutoHome_Map AS m ON m.province = r.Province
+    #          GROUP BY w.Brand, m.province_pinyin
+    #          ORDER BY no desc
+    #          """
+    sql = '''SELECT w.Brand, m.province, COUNT(m.province) AS no
              FROM DW_AutoHome_WOM AS w INNER JOIN
              DM_VW_region AS r ON w.City = r.City INNER JOIN
              DM_AutoHome_Map AS m ON m.province = r.Province
-             GROUP BY w.Brand, m.province_pinyin
-             ORDER BY no desc
-             """
+             GROUP BY w.Brand, m.province
+             ORDER BY no desc'''
     conn = pymssql.connect(server, user, password, "BDCI")
     df = pd.read_sql_query(sql, conn)
     brand = u'帕萨特'
-    df = df.loc[df['Brand']== para]
-    result = [['province','no']]
-    proList = df['province_pinyin'].tolist()
+    df = df.loc[df['Brand'] == para]
+    result = [['province', 'no']]
+    proList = df['province'].tolist()
     noList = df['no'].tolist()
-    for i in range(0,len(noList)):
-        pro = proList[i].strip()
+    for i in range(0, len(noList)):
+        pro = proList[i]
         no = noList[i]
-        result.append([pro,no])
-    return result
+        dit_ = {'name': pro, 'value': int(no)}
+        result.append(dit_)
+    re_list = result[1:]
+    return re_list
+# getCarOwner(u'凯美瑞')
 
 def getColumnChart_p1():
     sql = """SELECT w.brand,r.Region,count(w.brand) as no
@@ -41,7 +50,7 @@ def getColumnChart_p1():
     result = [['brand','东北区','华北区','华东区','华南区','华中区','西区']]
     brandList = list(set(df['brand'].tolist()))
     for i in range(0,len(brandList)):
-        df_temp = df.loc[df['brand']== brandList[i]]
+        df_temp = df.loc[df['brand'] == brandList[i]]
         list_temp = df_temp['no'].tolist()
         subresult = [brandList[i]]
         sum_temp = sum(list_temp)
@@ -49,6 +58,7 @@ def getColumnChart_p1():
             subresult.append(no/sum_temp)
         result.append(subresult)
     return result
+getColumnChart_p1()
 
 def getLevel1Attributes(paraList):
     newList = paraList.strip('[]').replace('"','').split(',')
