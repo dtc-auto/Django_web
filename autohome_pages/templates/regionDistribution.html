@@ -1,3 +1,4 @@
+
 {% extends 'base_2charts.html' %}
 
 {% block title %}Region Distribution{% endblock %}
@@ -10,8 +11,10 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
+
       $("#sel1").change(function(){
         var car = $("#sel1").val();
+
         $.getJSON('{% url 'region' %}',{'a':car}, function(ret){
             drawMarkersMap(ret.list1);
             drawTrendlines(ret.list2);
@@ -30,52 +33,184 @@
 
 {% block up_script %}
 <script type="text/javascript">
-        google.charts.load('current', {
-         'packages': ['geochart'],
-               // Note: you will need to get a mapsApiKey for your project.
-               // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-               'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-           });
-        google.charts.setOnLoadCallback(drawMarkersMap);
-    try{
-        function drawMarkersMap(list) {
-          var data = google.visualization.arrayToDataTable(list);
-          var options = {
-            width:'100%',
-            height:'100%',
-            region: 'CN',
-            displayMode: 'markers',
-            colorAxis: {colors: ['blue', 'Red']}
-        };
-        var chart = new google.visualization.GeoChart(document.getElementById('up'));
-        chart.draw(data, options);
-    }
+function drawMarkersMap(test_list){
+var dom = document.getElementById("container");
+var drawMarkersMap = echarts.init(document.getElementById('up'));
+
+var app = {};
+option = null;
+
+option = {
+    title: {
+        text: '车主区域分布',
+        <!--subtext: car,-->
+        left: 'center'
+    },
+    tooltip: {
+        trigger: 'item'
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+
+    },
+    visualMap: {
+        min: 0,
+        max: 150,
+        left: 'left',
+        top: 'bottom',
+        text: ['高','低'],           // 文本，默认为数值文本
+        calculable: true
+    },
+    toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+            dataView: {readOnly: false},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    series: [
+        {
+            name: '',
+            type: 'map',
+            mapType: 'china',
+            roam: false,
+            label: {
+                normal: {
+                    show: true
+                },
+                emphasis: {
+                    show: true
+                }
+            },
+            data:test_list
+        },
+
+
+    ]
+};
+    drawMarkersMap.setOption(option);
 }
-    catch(err) {
-    alert('error')
-    }
+
+<!--图二-->
 
 </script>
 {% endblock %}
 
 {% block down_script %}
-<script type="text/javascript">
-        google.charts.load('current', {packages: ['corechart', 'bar']});
-        google.charts.setOnLoadCallback(drawTrendlines);
-    try{
-            function drawTrendlines(list1) {
-              var data = google.visualization.arrayToDataTable(list1);
-              var options = {
-                legend: { position: 'top', maxLines: 3 },
-                bar: { groupWidth: '75%' },
-                isStacked: true,
-            };
-            var chart = new google.visualization.ColumnChart(document.getElementById('down'));
-            chart.draw(data, options);
+    <script type="text/javascript">
+var dom = document.getElementById("container");
+var drawTrendlines = echarts.init(document.getElementById('down'));
+var app = {};
+option = null;
+app.title = '堆叠条形图';
+
+option = {
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
         }
+    },
+    legend: {
+        data: ['东北区', '华北区', '华东区', '华南区', '华中区', '西区']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis:  {
+        type: 'value'
+    },
+    yAxis: {
+        type: 'category',
+        data: ['迈腾', '凯美瑞', '雅阁', '蒙迪欧', '迈锐宝', '帕萨特', '迈锐宝XL', '名图']
+    },
+    series: [
+        {
+            name: '东北区',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [320, 302, 301, 334, 390, 330, 320]
+        },
+        {
+            name: '华北区',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name: '华东区',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name: '华南区',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [150, 212, 201, 154, 190, 330, 410]
+        },
+        {
+            name: '华中区',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [820, 832, 901, 934, 1290, 1330, 1320]
+        },
+        {
+            name: '西区',
+            type: 'bar',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
+            data: [820, 832, 901, 934, 1290, 1330, 1320]
+        }
+    ]
+};;
+if (option && typeof option === "object") {
+    drawTrendlines.setOption(option, true);
     }
-    catch(err){
-        alert('error')
-    }
-</script>
+    </script>
+<!--<div id="main" style="width: 600px;height:400px;"></div>-->
+
 {% endblock %}
