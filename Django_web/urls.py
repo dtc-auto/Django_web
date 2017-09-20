@@ -5,6 +5,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # index page
     url(r'^$', 'autohome_pages.views.base', name='index'),
+    # login page
+    url(r'^login$', 'autohome_pages.views.login', name='login'),
     # dashboard page
     url(r'^dashboard', 'autohome_pages.views.carOwnerChartPage', name='dashboard'),
     # charts and pages with chart
