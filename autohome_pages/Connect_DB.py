@@ -53,12 +53,19 @@ def getColumnChart_p1():
         df_temp = df.loc[df['brand'] == brandList[i]]
         list_temp = df_temp['no'].tolist()
         subresult = [brandList[i]]
+        # 保留两位有效数字
+
         sum_temp = sum(list_temp)
         for no in list_temp:
             subresult.append(no/sum_temp)
         result.append(subresult)
+    # 保留小数（BUG：导致数据相加不为1）
+    # for i_list in range(1, len(result)):
+    #     for i_ in range(1, len(result[i_list])):
+    #         print(result[i_list])
+    #         result[i_list][i_] = float('%.2f'% result[i_list][i_])
     return result
-getColumnChart_p1()
+# getColumnChart_p1()
 
 def getLevel1Attributes(paraList):
     newList = paraList.strip('[]').replace('"','').split(',')
@@ -91,7 +98,7 @@ def getLevel1Attributes(paraList):
     target.insert(0,'Aspect'.encode('utf8'))
     result.insert(0,target)
     return result
-
+# getLevel1Attributes('pasa')
 def getLevel2Attributes(paraList):
     list1 = paraList.strip('[]')
     list2 = list1.replace('"','')

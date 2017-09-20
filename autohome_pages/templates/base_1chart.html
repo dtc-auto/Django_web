@@ -36,6 +36,15 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
+       <!--引入echart包-->
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+        <!--echart包引入结束-->
 <div id="wrapper">
 
     {% include 'nav_side.html' %}
@@ -74,7 +83,7 @@
                             <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i></h3>
                         </div>
                         <div class="panel-body">
-                            <div id="up"></div>
+                            <div id="up" style="width: 1000px;height:700px;"></div>
                         </div>
                     </div>
                 </div>
