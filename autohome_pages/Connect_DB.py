@@ -84,13 +84,12 @@ def getLevel1Attributes(paraList):
     data_list = []
     aspect_list = ['Comfort','Controllability','Cost performance','Exterior','Fuel Consumption','Interior','Power','Space']
     data_list.append(aspect_list)
-    result = [[],[],[],[],[],[],[],[]]
+    result = []
     for brand_index in range(0, len(target)):
         sub = unicode(target[brand_index])
         df_temp = df.loc[df['Brand'] == sub]
         scorelist = df_temp['Score'].tolist()
-        for i in range(0,8):
-            result[i].append(scorelist[i])
+        result.append(scorelist)
     # 标记数据为快速实现echart 暂时注释掉
     # for i in range(0,8):
         # result[i].insert(0,aspect_list[i].encode('utf8'))
@@ -105,7 +104,7 @@ def getLevel1Attributes(paraList):
             print(result[i_list])
             result[i_list][i_] = float('%.2f'% result[i_list][i_])
     return result
-getLevel1Attributes('帕萨特,凯美瑞')
+# getLevel1Attributes('帕萨特,凯美瑞')
 def getLevel2Attributes(paraList):
     list1 = paraList.strip('[]')
     list2 = list1.replace('"','')
@@ -121,7 +120,7 @@ def getLevel2Attributes(paraList):
              when SentenceAttitude <= -1 then '-1' end  as Attitude
              ,frequency
              FROM DM_AutoHome_WOM_SecondLevelIndex_Noun_Modifier_Attitude_Frequency
-             WHERE updateflag=0
+             WHERE updateflag=0 
              """
     df = pd.read_sql_query(sql, conn)
     #brand = u'帕萨特'
@@ -150,7 +149,7 @@ def getLevel2Attributes(paraList):
         subResult = [index,manyiCount,meiganjueCount,bumanyiCount]
         result.append(subResult)
     return result[:10]
-
+# getLevel2Attributes("凯美瑞,空间")
 def getPurpose(para):
     sql = """select *
              from DM_AutoHoome_Purpose
