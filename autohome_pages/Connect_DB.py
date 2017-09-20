@@ -91,14 +91,21 @@ def getLevel1Attributes(paraList):
         scorelist = df_temp['Score'].tolist()
         for i in range(0,8):
             result[i].append(scorelist[i])
-    for i in range(0,8):
-        result[i].insert(0,aspect_list[i].encode('utf8'))
-    [x.encode('utf8') for x in target]
+    # 标记数据为快速实现echart 暂时注释掉
+    # for i in range(0,8):
+        # result[i].insert(0,aspect_list[i].encode('utf8'))
+    # [x.encode('utf8') for x in target]
     #print type(target[0])
-    target.insert(0,'Aspect'.encode('utf8'))
+    # target.insert(0,'Aspect'.encode('utf8'))
+
     result.insert(0,target)
+    # 保留两位小数
+    for i_list in range(1, len(result)):
+        for i_ in range(0, len(result[i_list])):
+            print(result[i_list])
+            result[i_list][i_] = float('%.2f'% result[i_list][i_])
     return result
-# getLevel1Attributes('pasa')
+getLevel1Attributes('帕萨特,凯美瑞')
 def getLevel2Attributes(paraList):
     list1 = paraList.strip('[]')
     list2 = list1.replace('"','')
