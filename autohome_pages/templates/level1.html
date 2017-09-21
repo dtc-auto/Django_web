@@ -10,15 +10,16 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
-      $("#selMulti").change(function(){
-        var array1 = $("#selMulti").val();
-        var json_array1 = JSON.stringify(array1);
-        $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
-            drawStacked(ret.list1);
-        })
-      });
-        var array1 = $("#selMulti").val();
-        var json_array1 = JSON.stringify(array1);
+      <!--$("#selMulti").change(function(){-->
+        <!--var array1 = $("#selMulti").val();-->
+        <!--var json_array1 = JSON.stringify(array1);-->
+        <!--$.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){-->
+            <!--drawStacked(ret.list1);-->
+        <!--})-->
+      <!--});-->
+
+        <!--var array1 = $("#selMulti").val();-->
+        var json_array1 = JSON.stringify("凯美瑞,帕萨特,雅阁,迈锐宝,迈锐宝XL,迈腾,蒙迪欧,名图");
         $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
             drawStacked(ret.list1);
             })
@@ -138,7 +139,7 @@ var labelOption = {
 };
 
 option = {
-    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+    color: ['#003366', '#006699', '#4cabce', '#e5323e', '#319ae5', '#e5c131', '#ad96b5', '#0c5259'],
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -147,7 +148,7 @@ option = {
     },
     legend: {
         <!--注释掉图例-->
-        ata: ['Comfort','Controllability','Cost performance', 'Exterior', 'Fuel Consumption', 'Interior', 'Power', 'Space']
+        data: [sxAxis[0],sxAxis[1],sxAxis[2],sxAxis[3],sxAxis[4],sxAxis[5],sxAxis[6],sxAxis[7]]
     },
     toolbox: {
         show: true,

@@ -104,7 +104,8 @@ def getLevel1Attributes(paraList):
             print(result[i_list])
             result[i_list][i_] = float('%.2f'% result[i_list][i_])
     return result
-# getLevel1Attributes('帕萨特,凯美瑞')
+getLevel1Attributes("凯美瑞,帕萨特,雅阁,迈锐宝,迈锐宝XL,迈腾,蒙迪欧,名图")
+
 def getLevel2Attributes(paraList):
     list1 = paraList.strip('[]')
     list2 = list1.replace('"','')
@@ -178,4 +179,4 @@ def getPurpose(para):
         result.append(subResult)
     #add average data
     return result
-getPurpose('凯美瑞')
+# getPurpose('凯美瑞')
