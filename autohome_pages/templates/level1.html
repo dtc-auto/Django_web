@@ -158,7 +158,7 @@ option = {
         feature: {
             mark: {show: true},
             dataView: {show: true, readOnly: false},
-            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            magicType: {show: true, type: ['line', 'bar']},
             restore: {show: true},
             saveAsImage: {show: true}
         }
@@ -173,23 +173,13 @@ option = {
     ],
     yAxis: [
         {
-            type: 'value'
+            type: 'value',
+            min: 3,
+            max: 5
         }
     ],
 
-    <!--series:-->
-         <!--[-->
-            <!--for(var i=0;i<test_lite.length;i++){-->
-                    <!--{-->
-                        <!--name:sxAxis[i],-->
-                        <!--type:'bar',-->
 
-                        <!--label: labelOption,-->
-                        <!--data:test_lite[i]-->
-                    <!--}-->
-            <!--}-->
-         <!--]-->
-<!--=========================================================-->
     series: [
         {
             name: sxAxis[0],

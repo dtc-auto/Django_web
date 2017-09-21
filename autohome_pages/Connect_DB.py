@@ -59,11 +59,11 @@ def getColumnChart_p1():
         for no in list_temp:
             subresult.append(no/sum_temp)
         result.append(subresult)
-    # 保留小数（BUG：导致数据相加不为1）
-    # for i_list in range(1, len(result)):
-    #     for i_ in range(1, len(result[i_list])):
-    #         print(result[i_list])
-    #         result[i_list][i_] = float('%.2f'% result[i_list][i_])
+    # 保留3位小数
+    for i_list in range(1, len(result)):
+        for i_ in range(1, len(result[i_list])):
+            print(result[i_list])
+            result[i_list][i_] = float('%.3f'% result[i_list][i_])
     return result
 # getColumnChart_p1()
 

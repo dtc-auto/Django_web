@@ -16,14 +16,15 @@
         var car = $("#sel1").val();
 
         $.getJSON('{% url 'region' %}',{'a':car}, function(ret){
-            drawMarkersMap(ret.list1);
+
+            drawMarkersMap(ret.list1,car);
             drawTrendlines(ret.list2);
         })
     });
   });
     var car = $("#sel1").val();
     $.getJSON('{% url 'region' %}',{'a':car}, function(ret){
-        drawMarkersMap(ret.list1);
+        drawMarkersMap(ret.list1,car);
         drawTrendlines(ret.list2);
     })
 </script>
@@ -33,7 +34,7 @@
 
 {% block up_script %}
 <script type="text/javascript">
-function drawMarkersMap(test_list){
+function drawMarkersMap(test_list,car){
 var dom = document.getElementById("container");
 var drawMarkersMap = echarts.init(document.getElementById('up'));
 
@@ -43,7 +44,7 @@ option = null;
 option = {
     title: {
         text: '车主区域分布',
-        <!--subtext: car,-->
+        subtext: car,
         left: 'center'
     },
     tooltip: {
@@ -75,7 +76,7 @@ option = {
     },
     series: [
         {
-            name: '',
+            name: car,
             type: 'map',
             mapType: 'china',
             roam: false,
@@ -127,7 +128,8 @@ option = {
         containLabel: true
     },
     xAxis:  {
-        type: 'value'
+        type: 'value',
+        max: 1
     },
     yAxis: {
         type: 'category',
