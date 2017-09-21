@@ -104,7 +104,7 @@ def getLevel1Attributes(paraList):
             print(result[i_list])
             result[i_list][i_] = float('%.2f'% result[i_list][i_])
     return result
-getLevel1Attributes("凯美瑞,帕萨特,雅阁,迈锐宝,迈锐宝XL,迈腾,蒙迪欧,名图")
+# getLevel1Attributes("凯美瑞,帕萨特,雅阁,迈锐宝,迈锐宝XL,迈腾,蒙迪欧,名图")
 
 def getLevel2Attributes(paraList):
     list1 = paraList.strip('[]')
@@ -150,7 +150,7 @@ def getLevel2Attributes(paraList):
         subResult = [index,manyiCount,meiganjueCount,bumanyiCount]
         result.append(subResult)
     return result[:10]
-# getLevel2Attributes("凯美瑞,空间")
+getLevel2Attributes("凯美瑞,空间")
 
 def getPurpose(para):
     sql = """select *
@@ -178,5 +178,9 @@ def getPurpose(para):
         subResult = [header,averageData,data]
         result.append(subResult)
     #add average data
+    for i_list in range(1, len(result)):
+        for i_ in range(1, len(result[i_list])):
+            print(result[i_list])
+            result[i_list][i_] = float('%.3f'% result[i_list][i_])
     return result
 # getPurpose('凯美瑞')
