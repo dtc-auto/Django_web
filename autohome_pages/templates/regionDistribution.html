@@ -211,8 +211,19 @@ option = {
 };
 
     drawTrendlines.setOption(option);
+    charts.push(drawTrendlines);
 
+        drawTrendlines = echarts.init(document.getElementById('down'));
+        drawTrendlines.setOption(option);
+        charts.push(drawTrendlines);
+
+        window.onresize = function(){
+            for(var i = 0; i < charts.length; i++){
+                charts[i].resize();
+            }
+        };
   }
+
     </script>
 <!--<div id="main" style="width: 600px;height:400px;"></div>-->
 

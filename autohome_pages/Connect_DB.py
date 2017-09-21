@@ -150,6 +150,7 @@ def getLevel2Attributes(paraList):
         result.append(subResult)
     return result[:10]
 # getLevel2Attributes("凯美瑞,空间")
+
 def getPurpose(para):
     sql = """select *
              from DM_AutoHoome_Purpose
@@ -177,3 +178,4 @@ def getPurpose(para):
         result.append(subResult)
     #add average data
     return result
+getPurpose('凯美瑞')

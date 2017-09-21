@@ -146,7 +146,8 @@ option = {
         }
     },
     legend: {
-        <!--ata: sxAxis  注释掉图例-->
+        <!--注释掉图例-->
+        ata: ['Comfort','Controllability','Cost performance', 'Exterior', 'Fuel Consumption', 'Interior', 'Power', 'Space']
     },
     toolbox: {
         show: true,
@@ -175,73 +176,84 @@ option = {
         }
     ],
 
-    series:
-         [
-            for(var i=0;i<test_lite.length;i++){
-                    {
-                        name:sxAxis[i],
-                        type:'bar',
+    <!--series:-->
+         <!--[-->
+            <!--for(var i=0;i<test_lite.length;i++){-->
+                    <!--{-->
+                        <!--name:sxAxis[i],-->
+                        <!--type:'bar',-->
 
-                        label: labelOption,
-                        data:test_lite[i]
-                    }
-            }
-         ]
+                        <!--label: labelOption,-->
+                        <!--data:test_lite[i]-->
+                    <!--}-->
+            <!--}-->
+         <!--]-->
 <!--=========================================================-->
-    <!--series: [-->
-        <!--{-->
-            <!--name: sxAxis[0],-->
-            <!--type: 'bar',-->
-            <!--barGap: 0,-->
-            <!--label: labelOption,-->
-            <!--data: aseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[1],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: bseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[2],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: cseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[3],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: dseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[4],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: eseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[5],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: fseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[6],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: gseries-->
-        <!--},-->
-        <!--{-->
-            <!--name: sxAxis[7],-->
-            <!--type: 'bar',-->
-            <!--label: labelOption,-->
-            <!--data: hseries-->
-        <!--}-->
-    <!--]-->
+    series: [
+        {
+            name: sxAxis[0],
+            type: 'bar',
+            barGap: 0,
+            label: labelOption,
+            data: aseries
+        },
+        {
+            name: sxAxis[1],
+            type: 'bar',
+            label: labelOption,
+            data: bseries
+        },
+        {
+            name: sxAxis[2],
+            type: 'bar',
+            label: labelOption,
+            data: cseries
+        },
+        {
+            name: sxAxis[3],
+            type: 'bar',
+            label: labelOption,
+            data: dseries
+        },
+        {
+            name: sxAxis[4],
+            type: 'bar',
+            label: labelOption,
+            data: eseries
+        },
+        {
+            name: sxAxis[5],
+            type: 'bar',
+            label: labelOption,
+            data: fseries
+        },
+        {
+            name: sxAxis[6],
+            type: 'bar',
+            label: labelOption,
+            data: gseries
+        },
+        {
+            name: sxAxis[7],
+            type: 'bar',
+            label: labelOption,
+            data: hseries
+        }
+    ]
 };
 
     drawStacked.setOption(option);
+
+        charts.push(drawStacked);
+        drawStacked = echarts.init(document.getElementById('down'));
+        drawStacked.setOption(option);
+        charts.push(drawStacked);
+
+        window.onresize = function(){
+            for(var i = 0; i < charts.length; i++){
+                charts[i].resize();
+            }
+        };
 }
 </script>
 {% endblock %}
