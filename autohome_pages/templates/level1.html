@@ -10,19 +10,18 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
-      $("#selMulti").change(function(){
-        var array1 = $("#selMulti").val();
-        var json_array1 = JSON.stringify(array1);
+      <!--$("#selMulti").change(function(){-->
+        <!--var array1 = $("#selMulti").val();-->
+        <!--var json_array1 = JSON.stringify(array1);-->
+        <!--$.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){-->
+            <!--drawStacked(ret.list1);-->
+        <!--})-->
+      <!--});-->
+
+        <!--var array1 = $("#selMulti").val();-->
+        var json_array1 = JSON.stringify("凯美瑞,帕萨特,雅阁,迈锐宝,迈锐宝XL,迈腾,蒙迪欧,名图");
         $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
             drawStacked(ret.list1);
-            drawTable(ret.list1);
-        })
-      });
-        var array1 = $("#selMulti").val();
-        var json_array1 = JSON.stringify(array1);
-        $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
-            drawStacked(ret.list1);
-            drawTable(ret.list1);
             })
   });
 
@@ -123,7 +122,7 @@ app.config = {
 
 var labelOption = {
     normal: {
-        show: true,
+        show: false,
         position: app.config.position,
         distance: app.config.distance,
         align: app.config.align,
@@ -140,7 +139,7 @@ var labelOption = {
 };
 
 option = {
-    color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+    color: ['#003366', '#006699', '#4cabce', '#e5323e', '#319ae5', '#e5c131', '#ad96b5', '#0c5259'],
     tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -148,7 +147,8 @@ option = {
         }
     },
     legend: {
-        data: ['Comfort','Controllability','Cost performance', 'Exterior', 'Fuel Consumption', 'Interior', 'Power', 'Space']
+        <!--注释掉图例-->
+        data: [sxAxis[0],sxAxis[1],sxAxis[2],sxAxis[3],sxAxis[4],sxAxis[5],sxAxis[6],sxAxis[7]]
     },
     toolbox: {
         show: true,
@@ -158,8 +158,8 @@ option = {
         feature: {
             mark: {show: true},
             dataView: {show: true, readOnly: false},
-            <!--magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},-->
-            <!--restore: {show: true},-->
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
             saveAsImage: {show: true}
         }
     },
@@ -168,61 +168,64 @@ option = {
         {
             type: 'category',
             axisTick: {show: false},
-            data: sxAxis
+            data: ['Comfort','Controllability','Cost performance', 'Exterior', 'Fuel Consumption', 'Interior', 'Power', 'Space']
         }
     ],
     yAxis: [
         {
-            type: 'value'
+            type: 'value',
+            min: 3,
+            max: 5
         }
     ],
+
+
     series: [
         {
-            name: 'Comfort',
+            name: sxAxis[0],
             type: 'bar',
             barGap: 0,
             label: labelOption,
             data: aseries
         },
         {
-            name: 'Controllability',
+            name: sxAxis[1],
             type: 'bar',
             label: labelOption,
             data: bseries
         },
         {
-            name: 'Cost performance',
+            name: sxAxis[2],
             type: 'bar',
             label: labelOption,
             data: cseries
         },
         {
-            name: 'Exterior',
+            name: sxAxis[3],
             type: 'bar',
             label: labelOption,
             data: dseries
         },
         {
-            name: 'Fuel Consumption',
+            name: sxAxis[4],
             type: 'bar',
             label: labelOption,
             data: eseries
         },
         {
-            name: 'Interior',
+            name: sxAxis[5],
             type: 'bar',
             label: labelOption,
             data: fseries
         },
         {
-            name: 'Power',
+            name: sxAxis[6],
             type: 'bar',
             label: labelOption,
             data: gseries
         },
         {
-            name: 'Space',
-
+            name: sxAxis[7],
             type: 'bar',
             label: labelOption,
             data: hseries
@@ -231,6 +234,17 @@ option = {
 };
 
     drawStacked.setOption(option);
+
+        charts.push(drawStacked);
+        drawStacked = echarts.init(document.getElementById('down'));
+        drawStacked.setOption(option);
+        charts.push(drawStacked);
+
+        window.onresize = function(){
+            for(var i = 0; i < charts.length; i++){
+                charts[i].resize();
+            }
+        };
 }
 </script>
 {% endblock %}
