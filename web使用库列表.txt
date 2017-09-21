@@ -1,0 +1,83 @@
+﻿
+	BDCI
+
+MAP:
+getCarOwner:
+	DW_AutoHome_WOM
+		Brand/City
+	DM_VW_region
+		City/Province
+	DM_AutoHome_Map
+		province_pinyin/province
+
+getColumnChart_p1:
+	DM_VW_region
+		Region/City
+	DW_AutoHome_WOM
+		City/brand
+=========================================================
+LEVEL1:
+	DW_indexevaluationunpivot
+		score/Aspect/Brand
+
+LEVEL2:
+	DM_AutoHome_WOM_SecondLevelIndex_Noun_Modifier_Attitude_Frequency
+		Brand/Dimension/keyindex/KeyModifier/SentenceAttitude
+
+PURPOSE:
+	DM_AutoHoome_Purpose
+		*
+		ForChild
+      ForWork
+      ForShopping
+      ForBusiness
+      ForCrossCountry
+      ForLongDistance
+      ForRacing
+      ForSelfDriving
+      ForCarry
+      ForGirls
+      Brand
+==========================================================
+
+LEVEL2_NEW: 
+
+keyindex:
+SELECT distinct 
+[keyindex],[dimension]
+FROM [BDCI].[dbo].[DM_AutoHome_WOM_SecondLevelIndex_Noun_Modifier_Attitude_Frequency]
+WHERE 
+updateflag=0 and 
+Dimension=(?)
+
+
+Attitude:
+
+SELECT  Brand
+,Dimension
+,keyindex
+,KeyModifier
+,SentenceAttitude
+,case when SentenceAttitude >= 1 then N'满意' 
+when SentenceAttitude = 0 then N'没感觉'
+when SentenceAttitude <= -1 then N'不满意' end  as Attitude
+,frequency
+FROM      DM_AutoHome_WOM_SecondLevelIndex_Noun_Modifier_Attitude_Frequency
+WHERE   (Brand IN (?)) and (Dimension IN (?))
+and updateflag=0 
+====================================================================
+
+DM_AutoHome_WOM_SecondLevelIndex_Noun_Modifier_Attitude_Frequency
+
+	keyindex/dimension/Brand/keyindex/KeyModifier/SentenceAttitude/case
+
+
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-{% extends 'base_2charts.html' %}
+{% extends 'base_1chart.html' %}
 
 {% block title %}level One Index Evaluation{% endblock %}
 {% block chart_title %} 一级指标评估 Level-1 Index Evaluation {% endblock%}
@@ -10,22 +10,23 @@
 {% block jquery_script %}
 <script>
     $(document).ready(function(){
-      $("#selMulti").change(function(){
-        var array1 = $("#selMulti").val();
-        var json_array1 = JSON.stringify(array1);
+      <!--$("#selMulti").change(function(){-->
+        <!--var array1 = $("#selMulti").val();-->
+        <!--var json_array1 = JSON.stringify(array1);-->
+        <!--$.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){-->
+            <!--drawStacked(ret.list1);-->
+        <!--})-->
+      <!--});-->
+
+        <!--var array1 = $("#selMulti").val();-->
+        var json_array1 = JSON.stringify("凯美瑞,帕萨特,雅阁,迈锐宝,迈锐宝XL,迈腾,蒙迪欧,名图");
         $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
             drawStacked(ret.list1);
-            drawTable(ret.list1);
-        })
-      });
+            })
   });
 
-        var array1 = $("#selMulti").val();
-        var json_array1 = JSON.stringify(array1);
-        $.getJSON('{% url 'level1' %}',{'a':json_array1}, function(ret){
-            drawStacked(ret.list1);
-            drawTable(ret.list1);
-             });
+
+
 </script>
 {% endblock %}
 
@@ -33,50 +34,220 @@
 
 {% block up_script %}
 <script type="text/javascript">
-    google.charts.load('current', {packages: ['line']});
-    google.charts.setOnLoadCallback(drawStacked);
-    try{
-        function drawStacked(list1) {
-          var data = google.visualization.arrayToDataTable(list1);
+function drawStacked(test_list){
+var dom = document.getElementById("container");
+var drawStacked = echarts.init(document.getElementById('up'));
+var app = {};
+option = null;
 
-        var options = {
-                  width: '90%', height: 300,
-                  bars: 'horizontal', // Required for Material Bar Charts.
-                };
+<!--为实现动态进行得分赋值-->
+var sxAxis=[]=test_list[0];
+var aseries=[]=test_list[1];
+var bseries=[]=test_list[2];
+var cseries=[]=test_list[3];
+var dseries=[]=test_list[4];
+var eseries=[]=test_list[5];
+var fseries=[]=test_list[6];
+var gseries=[]=test_list[7];
+var hseries=[]=test_list[8];
 
-      var chart = new google.charts.Line(document.getElementById('up'));
-      chart.draw(data, google.charts.Line.convertOptions(options));
-  }
-}
-    catch(err) {
-    alert('error')
+var posList = [
+    'left', 'right', 'top', 'bottom',
+    'inside',
+    'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+];
+
+app.configParameters = {
+    rotate: {
+        min: -90,
+        max: 90
+    },
+    align: {
+        options: {
+            left: 'left',
+            center: 'center',
+            right: 'right'
+        }
+    },
+    verticalAlign: {
+        options: {
+            top: 'top',
+            middle: 'middle',
+            bottom: 'bottom'
+        }
+    },
+    position: {
+        options: echarts.util.reduce(posList, function (map, pos) {
+            map[pos] = pos;
+            return map;
+        }, {})
+    },
+    distance: {
+        min: 0,
+        max: 100
     }
+};
 
+app.config = {
+    rotate: 90,
+    align: 'left',
+    verticalAlign: 'middle',
+    position: 'insideBottom',
+    distance: 15,
+    onChange: function () {
+        var labelOption = {
+            normal: {
+                rotate: app.config.rotate,
+                align: app.config.align,
+                verticalAlign: app.config.verticalAlign,
+                position: app.config.position,
+                distance: app.config.distance
+            }
+        };
+        drawStacked.setOption({
+            series: [{
+                label: labelOption
+            }, {
+                label: labelOption
+            }, {
+                label: labelOption
+            }, {
+                label: labelOption
+            }]
+        });
+    }
+};
+
+
+var labelOption = {
+    normal: {
+        show: false,
+        position: app.config.position,
+        distance: app.config.distance,
+        align: app.config.align,
+        verticalAlign: app.config.verticalAlign,
+        rotate: app.config.rotate,
+        formatter: '{c}  {name|{a}}',
+        fontSize: 16,
+        rich: {
+            name: {
+                textBorderColor: '#fff'
+            }
+        }
+    }
+};
+
+option = {
+    color: ['#003366', '#006699', '#4cabce', '#e5323e', '#319ae5', '#e5c131', '#ad96b5', '#0c5259'],
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        <!--注释掉图例-->
+        data: [sxAxis[0],sxAxis[1],sxAxis[2],sxAxis[3],sxAxis[4],sxAxis[5],sxAxis[6],sxAxis[7]]
+    },
+    toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    calculable: true,
+    xAxis: [
+        {
+            type: 'category',
+            axisTick: {show: false},
+            data: ['Comfort','Controllability','Cost performance', 'Exterior', 'Fuel Consumption', 'Interior', 'Power', 'Space']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            min: 3,
+            max: 5
+        }
+    ],
+
+
+    series: [
+        {
+            name: sxAxis[0],
+            type: 'bar',
+            barGap: 0,
+            label: labelOption,
+            data: aseries
+        },
+        {
+            name: sxAxis[1],
+            type: 'bar',
+            label: labelOption,
+            data: bseries
+        },
+        {
+            name: sxAxis[2],
+            type: 'bar',
+            label: labelOption,
+            data: cseries
+        },
+        {
+            name: sxAxis[3],
+            type: 'bar',
+            label: labelOption,
+            data: dseries
+        },
+        {
+            name: sxAxis[4],
+            type: 'bar',
+            label: labelOption,
+            data: eseries
+        },
+        {
+            name: sxAxis[5],
+            type: 'bar',
+            label: labelOption,
+            data: fseries
+        },
+        {
+            name: sxAxis[6],
+            type: 'bar',
+            label: labelOption,
+            data: gseries
+        },
+        {
+            name: sxAxis[7],
+            type: 'bar',
+            label: labelOption,
+            data: hseries
+        }
+    ]
+};
+
+    drawStacked.setOption(option);
+
+        charts.push(drawStacked);
+        drawStacked = echarts.init(document.getElementById('down'));
+        drawStacked.setOption(option);
+        charts.push(drawStacked);
+
+        window.onresize = function(){
+            for(var i = 0; i < charts.length; i++){
+                charts[i].resize();
+            }
+        };
+}
 </script>
 {% endblock %}
 
 {% block down_script %}
-<script type="text/javascript">
-    google.charts.load('current', {'packages':['table']});
-    google.charts.setOnLoadCallback(drawTable);
-    try{
-        function drawTable(list1) {
-          var data = new google.visualization.DataTable();
-          var array = list1;
-          len = array[0].length;
-          data.addColumn('string', array[0][0]);
-          for (i = 1; i < len; i++) {
-            data.addColumn('number', array[0][i]);
-          }
-          array.shift();
-          data.addRows(array);
-          var table = new google.visualization.Table(document.getElementById('down'));
-
-          table.draw(data, {showRowNumber: false, width: '100%', height: 300});
-        }
-    }
-    catch(err){
-        alert('error')
-    }
-</script>
 {% endblock %}

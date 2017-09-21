@@ -34,6 +34,7 @@ def login(request):
                               {'userform': userform},
                               context_instance=RequestContext(request))
 
+
 def base(request):
     return render(request, 'index.html')
 

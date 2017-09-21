@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class User(models.Model):
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
@@ -12,6 +13,19 @@ class User(models.Model):
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'password')
+
+
+admin.site.register(User, UserAdmin)
+class MAP(models.Model):
+
+
+    W_Brand = models.CharField(max_length=100)
+    W_City = models.CharField(max_length=100)
+    R_City = models.CharField(max_length=100)
+    R_Province = models.CharField(max_length=100)
+    R_Region = models.CharField(max_length=100)
+    M_province_pinyin = models.CharField(max_length=100)
+    M_province = models.CharField(max_length=100)
 
 
 class LEVEL1(models.Model):
@@ -43,16 +57,3 @@ class PURPOSE(models.Model):
     ForCarry = models.CharField(max_length=100)
     ForGirls = models.CharField(max_length=100)
     Brand = models.CharField(max_length=100)
-
-
-class User(models.Model):
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    email = models.EmailField()
-
-
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'password')
-
-
-admin.site.register(User, UserAdmin)
