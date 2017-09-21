@@ -58,8 +58,14 @@ option = {
     calculable : true,
     xAxis : [
         {
+
             type : 'category',
-            data : [test_list[1][0],test_list[2][0],test_list[3][0],test_list[4][0],test_list[5][0],test_list[6][0],test_list[7][0],test_list[8][0],test_list[9][0],test_list[10][0]]
+            data : [test_list[1][0],test_list[2][0],test_list[3][0],test_list[4][0],test_list[5][0],test_list[6][0],test_list[7][0],test_list[8][0],test_list[9][0],test_list[10][0]],
+            axisLabel:{
+              <!--rotate:45, //刻度旋转45度角-->
+              interval:0
+            }
+
         }
     ],
     yAxis : [
